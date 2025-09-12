@@ -1,0 +1,6 @@
+{
+    "title": "Project From File",
+    "description": "This project was created by reading from a JSON file.",
+    "imageUrl": "https://placehold.co/200x200",
+    "technologies": ["JSON", "File Input"]
+}
