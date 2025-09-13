@@ -6,8 +6,15 @@ Portfolio with CMS
 - **Backend**: Node.js, Express.js  
 - **Database**: MySQL
 
-<video src="demo.mp4" width="100%" controls autoplay loop></video>
-
 ## 📽️ Demo
+<video src="https://github.com/user-attachments/assets/e4f50393-76ff-460a-9f2f-c4444afc94fc" width="100%" controls autoplay loop></video>
 
-[![Watch the demo](thumbnail.png)](portfoilio.mp4)
+
+
+
+
+
+
+
+
+
