@@ -1,5 +1,11 @@
 # EazyByts
-portfolio with cms
-Frontend using HTML, CSS, JS and React.JS
-Backend using Node.js and Express.js
-Database: MySql
+
+Portfolio with CMS
+
+- **Frontend**: HTML, CSS, JavaScript, React.js  
+- **Backend**: Node.js, Express.js  
+- **Database**: MySQL
+
+## 📽️ Demo
+
+[Watch the demo video](portfoilio.mp4)
