@@ -7,6 +7,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 
 // 2. INITIALIZATION
 dotenv.config();
@@ -77,6 +79,19 @@ const protect = (req, res, next) => {
     }
 };
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // The folder where files will be stored
+    },
+    filename: function (req, file, cb) {
+        // Create a unique filename: fieldname-timestamp.extension
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+
+const upload = multer({ storage: storage });
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // 5. API ROUTES
 
 // --- User Routes ---
@@ -136,24 +151,70 @@ app.get('/api/projects', (req, res) => {
     });
 });
 
-// Create a Project (PROTECTED)
-app.post('/api/projects', protect, (req, res) => {
-    const { title, description, imageUrl, technologies } = req.body;
-    const projectData = { title, description, imageUrl };
+app.get('/api/projects/:id', (req, res) => {
+    const projectId = req.params.id;
+    const sql = `
+        SELECT p.*, GROUP_CONCAT(pt.technologyName) AS technologies
+        FROM projects p
+        LEFT JOIN project_technologies pt ON p.id = pt.projectId
+        WHERE p.id = ?
+        GROUP BY p.id;
+    `;
 
-    // 1. Insert the main project data
+    db.query(sql, [projectId], (err, result) => {
+        if (err) {
+            console.error("Error fetching single project:", err);
+            return res.status(500).json({ message: 'Server error' });
+        }
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const project = {
+            ...result[0],
+            technologies: result[0].technologies ? result[0].technologies.split(',') : []
+        };
+        res.json(project);
+    });
+});
+
+app.post('/api/projects', protect, upload.single('image'), (req, res) => {
+    // Text fields are in req.body
+    const { title, description, technologies, imageUrl: imageUrlFromText } = req.body;
+    
+    let finalImageUrl;
+
+    // --- NEW LOGIC: Decide which image URL to use ---
+    if (req.file) {
+        // Case 1: A file was uploaded. Use its path.
+        const backendUrl = `${req.protocol}://${req.get('host')}`;
+        finalImageUrl = `${backendUrl}/uploads/${req.file.filename}`;
+    } else if (imageUrlFromText) {
+        // Case 2: No file was uploaded, but a URL was provided in the text input.
+        finalImageUrl = imageUrlFromText;
+    } else {
+        // Case 3: Neither a file nor a URL was provided. This is an error.
+        return res.status(400).json({ message: 'Please provide an image by uploading a file or entering a URL.' });
+    }
+
+    const projectData = { title, description, imageUrl: finalImageUrl };
+
     db.query('INSERT INTO projects SET ?', projectData, (err, result) => {
-        if (err) return res.status(500).json({ message: 'Server error creating project' });
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Server error creating project' });
+        }
         const projectId = result.insertId;
 
-        // 2. If there are technologies, insert them into the pivot table
-        if (technologies && technologies.length > 0) {
-            const techValues = technologies.map(tech => [projectId, tech]);
+        // Handle technologies (this logic remains the same)
+        const techArray = technologies ? technologies.split(',').map(tech => tech.trim()).filter(tech => tech) : [];
+        if (techArray.length > 0) {
+            const techValues = techArray.map(tech => [projectId, tech]);
             db.query('INSERT INTO project_technologies (projectId, technologyName) VALUES ?', [techValues], (err, result) => {
                 if (err) return res.status(500).json({ message: 'Server error adding technologies' });
             });
         }
-        res.status(201).json({ id: projectId, ...projectData, technologies });
+        res.status(201).json({ id: projectId, ...projectData, technologies: techArray });
     });
 });
 
@@ -169,7 +230,49 @@ app.delete('/api/projects/:id', protect, (req, res) => {
     });
 });
 
-// We can add Update and Get By ID logic here as well if needed.
+app.put('/api/projects/:id', protect, upload.single('image'), (req, res) => {
+    const { title, description, technologies, imageUrl: imageUrlFromText } = req.body;
+    
+    db.query('SELECT * FROM projects WHERE id = ?', [req.params.id], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Server error finding project' });
+        if (result.length === 0) return res.status(404).json({ message: 'Project not found' });
+
+        let finalImageUrl = result[0].imageUrl; // Start with the existing image URL
+
+        if (req.file) {
+            // If a new file is uploaded, update the URL
+            const backendUrl = `${req.protocol}://${req.get('host')}`;
+            finalImageUrl = `${backendUrl}/uploads/${req.file.filename}`;
+            // TODO: Optionally delete the old image file from the server
+        } else if (imageUrlFromText) {
+            // If a new URL is provided, update it
+            finalImageUrl = imageUrlFromText;
+        }
+
+        const updatedProjectData = {
+            title: title || result[0].title,
+            description: description || result[0].description,
+            imageUrl: finalImageUrl,
+        };
+
+        db.query('UPDATE projects SET ? WHERE id = ?', [updatedProjectData, req.params.id], (err, updateResult) => {
+            if (err) return res.status(500).json({ message: 'Server error updating project' });
+
+            // Handle technologies update (delete old ones, insert new ones)
+            const techArray = technologies ? technologies.split(',').map(tech => tech.trim()).filter(tech => tech) : [];
+            db.query('DELETE FROM project_technologies WHERE projectId = ?', [req.params.id], (err, deleteResult) => {
+                if (err) return res.status(500).json({ message: 'Server error updating technologies' });
+                if (techArray.length > 0) {
+                    const techValues = techArray.map(tech => [req.params.id, tech]);
+                    db.query('INSERT INTO project_technologies (projectId, technologyName) VALUES ?', [techValues], (err, insertResult) => {
+                        if (err) return res.status(500).json({ message: 'Server error inserting technologies' });
+                    });
+                }
+            });
+            res.json({ id: req.params.id, ...updatedProjectData, technologies: techArray });
+        });
+    });
+});
 
 // 6. START THE SERVER
 const PORT = process.env.PORT || 5000;

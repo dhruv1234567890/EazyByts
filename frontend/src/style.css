@@ -1,10 +1,17 @@
-/* --- Global Styles & Variables --- */
+/* frontend/src/style.css - COMPLETE REDESIGN */
+
+/* --- 1. MODERN VARIABLES & GLOBAL STYLES --- */
 :root {
-    --primary-color: #5841D9;
-    --secondary-color: #34D399;
-    --dark-color: #111827;
-    --light-color: #F9FAFB;
-    --gray-color: #6B7280;
+    --bg-dark: #0f172a; /* Dark blue/slate background */
+    --bg-surface: #1e293b; /* Slightly lighter surface for cards */
+    --text-primary: #f8fafc; /* Almost white for main text */
+    --text-secondary: #94a3b8; /* Lighter gray for subtitles/secondary text */
+    --border-color: #334155;
+    
+    /* Vibrant Accent Gradient */
+    --accent-gradient: linear-gradient(90deg, #38bdf8, #818cf8);
+    --accent-color-1: #38bdf8;
+    --accent-color-2: #818cf8;
 }
 
 * {
@@ -18,10 +25,10 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    background: #fff;
-    color: var(--dark-color);
+    font-family: 'Inter', sans-serif; /* New modern font */
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.7;
 }
 
 .container {
@@ -31,68 +38,31 @@ body {
 }
 
 section {
-    padding: 80px 0;
+    padding: 100px 0;
 }
 
-h1, h2 {
-    text-align: center;
-    margin-bottom: 20px;
+h1, h2, h3 {
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 h2 {
-    font-size: 2.5rem;
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 40px;
 }
 
-/* --- Buttons --- */
-.btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: #fff;
-}
-.btn-primary:hover {
-    background: #4734b3;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background: #fff;
-    color: var(--dark-color);
-    border: 1px solid #D1D5DB;
-}
-.btn-secondary:hover {
-    background: var(--light-color);
-    border-color: #9CA3AF;
-}
-
-.btn-outline {
-    padding: 8px 20px;
-    border: 1px solid var(--secondary-color);
-    color: var(--secondary-color);
-    border-radius: 5px;
-}
-.btn-outline:hover {
-    background: var(--secondary-color);
-    color: #fff;
-}
-
-
-/* --- Header & Navigation --- */
+/* --- 2. HEADER - GLASSMORPHISM EFFECT --- */
 #header {
-    background: #fff;
-    padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 1.5rem 0;
+    background: rgba(15, 23, 42, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* The "frosted glass" effect */
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s ease;
 }
 
 #header nav {
@@ -102,214 +72,403 @@ h2 {
 }
 
 #header .logo {
-    color: var(--secondary-color);
-    text-decoration: none;
     font-size: 1.8em;
     font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
 #header nav ul {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 #header nav ul li a {
-    color: var(--gray-color);
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 #header nav ul li a:hover {
-    color: var(--primary-color);
+    color: var(--text-primary);
 }
 
 
-/* --- Main Content --- */
-main {
-    padding-top: 80px; /* Offset for fixed header */
-}
-
-/* Home Section */
+/* --- 3. HERO SECTION - AURORA BACKGROUND & BOLD TYPOGRAPHY --- */
 #home {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 80vh;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden; /* Hide overflowing parts of the aurora */
+}
+
+/* The animated background container */
+.aurora-background {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1; /* Place it behind the content */
+    filter: blur(100px); /* Key for the soft look */
+}
+/* The animated colored blobs */
+.aurora-background div {
+    position: absolute;
+    border-radius: 50%;
+    animation: aurora-animation 15s infinite alternate;
+}
+.aurora-background .shape1 {
+    width: 400px; height: 400px;
+    background: rgba(56, 189, 248, 0.2);
+    top: 10%; left: 15%;
+}
+.aurora-background .shape2 {
+    width: 300px; height: 300px;
+    background: rgba(129, 140, 248, 0.2);
+    bottom: 10%; right: 15%;
+    animation-delay: 5s; /* Stagger animations */
+}
+@keyframes aurora-animation {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, 100px) scale(1.2); }
+    100% { transform: translate(-50px, -50px) scale(1); }
 }
 
 #home h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
 }
+/* Applying the gradient to text */
 #home h1 span {
-    color: var(--primary-color);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
-
 #home .subtitle {
-    font-size: 1.1rem;
-    color: var(--gray-color);
-    max-width: 600px;
-    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-bottom: 2.5rem;
 }
 
 #home .home-buttons {
     display: flex;
-    gap: 1rem;
+    justify-content: center; /* This should already be happening */
+    gap: 1.5rem; /* <-- ADD THIS LINE */
+    margin-top: 2.5rem; /* This was already in #home .subtitle, moving it here is cleaner */
 }
 
-/* Skills Section */
-#skills {
-    background: var(--light-color);
-}
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-}
-.skill-item {
-    background: #fff;
-    color: var(--dark-color);
-    padding: 10px 20px;
-    border-radius: 5px;
+/* --- 4. MODERN BUTTONS --- */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
     font-weight: 600;
-    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn-primary {
+    background: var(--accent-gradient);
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(129, 140, 248, 0.2);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(129, 140, 248, 0.3);
+}
+.btn-secondary {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+#header .btn-outline {
+    display: none; /* Let's hide the header CV button for a cleaner look */
 }
 
-/* Projects & Blog Grid */
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.btn-outline:hover {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+
+
+/* --- 5. MODERN CARDS --- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
-    margin-top: 30px;
 }
 .card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: var(--bg-surface);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-color: var(--accent-color-2);
 }
 .card img {
     width: 100%;
-    display: block;
+    aspect-ratio: 16 / 9; /* Ensure all images have same proportions */
+    object-fit: cover; /* Prevents image stretching */
 }
-.card h3 {
-    padding: 15px 20px 5px;
+.card-content { padding: 25px; }
+.card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.card p { color: var(--text-secondary); }
+
+
+/* --- 6. OTHER COMPONENTS --- */
+/* Skills */
+#skills .section-title {
+    text-align: left; /* Align title to the left */
+    margin-bottom: 30px;
 }
-.card p, .card a {
-    padding: 0 20px 15px;
+
+#skills h2 {
+    text-align: left; /* Override the global centered style */
+    margin-bottom: 0;
 }
-.card a {
-    text-decoration: none;
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align pills to the left */
+    gap: 12px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(30, 41, 59, 0.5); /* Semi-transparent surface color */
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 50px; /* This creates the "pill" shape */
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
 }
 
-/* --- Contact Section --- */
-#contact {
-    background: var(--light-color);
+.skill-item:hover {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--accent-color-1);
+    transform: translateY(-3px);
 }
 
-.contact-info-strip {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    background: #E5E7EB;
-    padding: 30px;
-    border-radius: 8px;
-    margin-bottom: 40px;
-}
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.icon-box {
-    background: var(--secondary-color);
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-}
-.contact-item h4 {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--dark-color);
-}
-.contact-item p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--gray-color);
+.skill-item i {
+    font-size: 1.3rem;
+    /* This adds color to some specific icons */
+    &.devicon-react-original { color: #61DAFB; }
+    &.devicon-javascript-plain { color: #F7DF1E; }
+    &.devicon-typescript-plain { color: #3178C6; }
+    &.devicon-figma-plain { color: #F24E1E; }
+    &.devicon-tailwindcss-plain { color: #06B6D4; }
 }
 
+/* Contact Form */
 #contact-form {
     max-width: 700px;
-    margin: auto;
+    margin: 40px auto 0;
     display: flex;
     flex-direction: column;
 }
 #contact-form input, #contact-form textarea {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
     padding: 15px;
     margin-bottom: 15px;
-    border: 1px solid #D1D5DB;
     border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
 }
-#contact-form button {
-    align-self: center;
+#contact-form input:focus, #contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color-2);
+}
+#contact-form button { align-self: center; }
+
+/* Footer */
+#footer {
+    background: transparent;
+    border-top: 1px solid var(--border-color);
+    padding: 40px 0;
+    text-align: center; /* Fallback for alignment */
+
+    /* --- NEW FLEXBOX STYLES --- */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;    /* Center them horizontally */
+    gap: 20px;              /* Add 20px of space between each item */
 }
 
-/* --- Footer --- */
-#footer {
-    background: var(--dark-color);
-    color: #fff;
-    text-align: center;
-    padding: 40px 0;
-}
 .social-links {
-    margin-bottom: 20px;
+    display: flex; /* Make the icons themselves a horizontal flex row */
+    gap: 25px;     /* Space out the social media icons */
 }
+
 .social-links a {
-    color: #fff;
+    color: var(--text-secondary);
     font-size: 1.5rem;
-    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--text-primary);
+    transform: translateY(-3px); /* Add a little hover effect to icons */
+}
+
+/* Target the outline button specifically in the footer */
+#footer .btn-outline {
+    display: inline-block; /* Make sure it's visible */
+    border-color: var(--accent-color-1);
+    color: var(--accent-color-1);
+}
+
+#footer .btn-outline:hover {
+    background: var(--accent-color-1);
+    color: var(--text-primary);
+}
+
+#footer p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.mobile-nav-toggle {
+    display: none; /* Hidden by default */
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above the mobile nav */
+    color: var(--text-primary);
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 60%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--bg-surface);
+    transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1000;
+    padding-top: 100px;
+}
+
+.mobile-nav.active {
+    right: 0; /* Slide in */
+}
+
+.mobile-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.mobile-nav ul li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Media Query for mobile devices */
+@media (max-width: 768px) {
+    #header nav .desktop-nav {
+        display: none; /* Hide desktop nav on small screens */
+    }
+
+    .mobile-nav-toggle {
+        display: block; /* Show hamburger icon */
+    }
+
+    /* Blur the main content when the menu is open */
+    .mobile-nav.active + main,
+    .mobile-nav.active + footer {
+        filter: blur(5px);
+    }
+}
+
+.project-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+.project-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
     transition: color 0.3s ease;
 }
-.social-links a:hover {
-    color: var(--secondary-color);
-}
-#footer .btn-outline {
-    border-color: #fff;
-    color: #fff;
-    margin-bottom: 20px;
-}
-#footer .btn-outline:hover {
-    background: #fff;
-    color: var(--dark-color);
+.project-link-btn:hover {
+    color: var(--accent-color-1);
 }
 
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.skill-item i {
+    font-size: 1.5rem;
+}
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-    #header nav ul, #header .btn-outline {
-        display: none; /* Simple hiding for demo; can implement a burger menu */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 50px;
+    margin-top: 40px;
+    align-items: flex-start;
+}
+.contact-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+.contact-info p {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+.info-item i {
+    color: var(--accent-color-1);
+    font-size: 1.2rem;
+}
+#contact-form {
+    margin: 0;
+}
+/* Responsive adjustment for contact section */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
     }
-    #home h1 { font-size: 2.5rem; }
-    .contact-info-strip { flex-direction: column; align-items: flex-start; }
 }
