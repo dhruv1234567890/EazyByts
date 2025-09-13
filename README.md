@@ -8,4 +8,4 @@ Portfolio with CMS
 
 ## 📽️ Demo
 
-[Watch the demo video](portfoilio.mp4)
+[![Watch the demo](thumbnail.png)](portfoilio.mp4)
