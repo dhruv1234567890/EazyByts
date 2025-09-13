@@ -1,5 +1,3 @@
-// frontend/src/components/Header.jsx
-
 import React, { useState } from 'react';
 
 const Header = () => {
@@ -15,7 +13,6 @@ const Header = () => {
                 <nav>
                     <a href="#home" className="logo">Dhruv Chunawala</a>
                     
-                    {/* Desktop Navigation */}
                     <ul className="desktop-nav">
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Portfolio</a></li>
@@ -23,12 +20,10 @@ const Header = () => {
                         <li><a href="#contact">Contact</a></li>
                     </ul>
 
-                    {/* Hamburger Icon for Mobile */}
                     <div className="mobile-nav-toggle" onClick={toggleMenu}>
                         <i className={menuOpen ? "fas fa-times" : "fas fa-bars"}></i>
                     </div>
 
-                    {/* Mobile Navigation Menu */}
                     <div className={`mobile-nav ${menuOpen ? 'active' : ''}`}>
                         <ul>
                             <li><a href="#skills" onClick={toggleMenu}>Skills</a></li>

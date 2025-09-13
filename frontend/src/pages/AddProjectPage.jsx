@@ -1,5 +1,3 @@
-// frontend/src/pages/AddProjectPage.jsx
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -7,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const AddProjectPage = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [imageUrl, setImageUrl] = useState('');     // For the text input URL
-    const [imageFile, setImageFile] = useState(null); // For the file upload
+    const [imageUrl, setImageUrl] = useState('');     
+    const [imageFile, setImageFile] = useState(null); 
     const [technologies, setTechnologies] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -21,7 +19,6 @@ const AddProjectPage = () => {
         e.preventDefault();
         setError(null);
 
-        // A user must provide either a file OR a URL, but not both.
         if (imageFile && imageUrl) {
             setError('Please provide either an image file or a URL, not both.');
             return;
@@ -36,11 +33,10 @@ const AddProjectPage = () => {
         formData.append('description', description);
         formData.append('technologies', technologies);
         
-        // --- NEW LOGIC: Conditionally append image data ---
         if (imageFile) {
-            formData.append('image', imageFile); // 'image' for the file upload
+            formData.append('image', imageFile);
         } else {
-            formData.append('imageUrl', imageUrl); // 'imageUrl' for the text URL
+            formData.append('imageUrl', imageUrl); 
         }
 
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -73,7 +69,6 @@ const AddProjectPage = () => {
                 <input type="text" placeholder="Project Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 <textarea rows="6" placeholder="Project Description" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
                 
-                {/* Keep BOTH input options */}
                 <input type="text" placeholder="Image URL (e.g., https://...)" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
                 
                 <div style={{ margin: '15px 0', textAlign: 'center', fontWeight: 'bold' }}>OR</div>

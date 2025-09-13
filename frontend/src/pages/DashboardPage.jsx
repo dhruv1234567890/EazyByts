@@ -1,5 +1,3 @@
-// frontend/src/pages/DashboardPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
@@ -10,12 +8,10 @@ const DashboardPage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // Get user info from localStorage to access the token
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const token = userInfo ? userInfo.token : null;
 
     useEffect(() => {
-        // If no token exists, redirect to login
         if (!token) {
             navigate('/login');
             return;
@@ -49,7 +45,6 @@ const DashboardPage = () => {
                     },
                 };
                 await axios.delete(`/api/projects/${id}`, config);
-                // Filter out the deleted project from the state to update the UI
                 setProjects(projects.filter((p) => p.id !== id));
             } catch (err) {
                 setError('Failed to delete project.');

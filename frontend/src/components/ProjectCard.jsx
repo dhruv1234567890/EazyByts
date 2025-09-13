@@ -1,4 +1,3 @@
-// frontend/src/components/ProjectCard.jsx
 import React from 'react';
 
 const ProjectCard = ({ project }) => {
@@ -15,7 +14,7 @@ const ProjectCard = ({ project }) => {
             <span key={index} className="tech-tag">{tech}</span>
           ))}
         </div>
-        {/* NEW: Project Links Section */}
+
         <div className="project-links">
           {project.liveLink && (
             <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="project-link-btn">

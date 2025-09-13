@@ -9,7 +9,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('/api/projects'); // The URL to your backend endpoint
+        const response = await fetch('/api/projects');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -23,7 +23,7 @@ const Projects = () => {
     };
 
     fetchProjects();
-  }, []); // The empty array [] means this effect runs only once when the component mounts
+  }, []); 
 
   return (
     <section id="projects">

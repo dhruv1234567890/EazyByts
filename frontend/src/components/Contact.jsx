@@ -3,7 +3,6 @@ import React from 'react';
 const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic to send form data to the backend will go here
     alert('Form submitted! (Frontend placeholder)');
   };
 

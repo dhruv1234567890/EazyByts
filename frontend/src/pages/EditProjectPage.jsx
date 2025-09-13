@@ -1,5 +1,3 @@
-// frontend/src/pages/EditProjectPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -22,7 +20,7 @@ const EditProjectPage = () => {
                 const { data } = await axios.get(`/api/projects/${id}`);
                 setTitle(data.title);
                 setDescription(data.description);
-                setImageUrl(data.imageUrl); // This will now be the full URL
+                setImageUrl(data.imageUrl);
                 setTechnologies(data.technologies.join(', '));
             } catch (err) {
                 setError('Failed to fetch project data.');
@@ -46,7 +44,6 @@ const EditProjectPage = () => {
         formData.append('description', description);
         formData.append('technologies', technologies);
 
-        // Logic to handle which image source to update
         if (imageFile) {
             formData.append('image', imageFile);
         } else {

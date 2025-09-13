@@ -1,14 +1,10 @@
-/* frontend/src/style.css - COMPLETE REDESIGN */
-
-/* --- 1. MODERN VARIABLES & GLOBAL STYLES --- */
 :root {
-    --bg-dark: #0f172a; /* Dark blue/slate background */
-    --bg-surface: #1e293b; /* Slightly lighter surface for cards */
-    --text-primary: #f8fafc; /* Almost white for main text */
-    --text-secondary: #94a3b8; /* Lighter gray for subtitles/secondary text */
+    --bg-dark: #0f172a; 
+    --bg-surface: #1e293b; 
+    --text-primary: #f8fafc; 
+    --text-secondary: #94a3b8;
     --border-color: #334155;
     
-    /* Vibrant Accent Gradient */
     --accent-gradient: linear-gradient(90deg, #38bdf8, #818cf8);
     --accent-color-1: #38bdf8;
     --accent-color-2: #818cf8;
@@ -25,7 +21,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* New modern font */
+    font-family: 'Inter', sans-serif; 
     background: var(--bg-dark);
     color: var(--text-primary);
     line-height: 1.7;
@@ -52,15 +48,14 @@ h2 {
     margin-bottom: 40px;
 }
 
-/* --- 2. HEADER - GLASSMORPHISM EFFECT --- */
 #header {
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
     padding: 1.5rem 0;
-    background: rgba(15, 23, 42, 0.8); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* The "frosted glass" effect */
+    background: rgba(15, 23, 42, 0.8); 
+    backdrop-filter: blur(10px); 
     border-bottom: 1px solid var(--border-color);
     transition: background 0.3s ease;
 }
@@ -95,8 +90,6 @@ h2 {
     color: var(--text-primary);
 }
 
-
-/* --- 3. HERO SECTION - AURORA BACKGROUND & BOLD TYPOGRAPHY --- */
 #home {
     display: flex;
     flex-direction: column;
@@ -105,17 +98,16 @@ h2 {
     text-align: center;
     min-height: 100vh;
     position: relative;
-    overflow: hidden; /* Hide overflowing parts of the aurora */
+    overflow: hidden; 
 }
 
-/* The animated background container */
 .aurora-background {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1; /* Place it behind the content */
-    filter: blur(100px); /* Key for the soft look */
+    z-index: -1;
+    filter: blur(100px); 
 }
-/* The animated colored blobs */
+
 .aurora-background div {
     position: absolute;
     border-radius: 50%;
@@ -144,7 +136,7 @@ h2 {
     margin-bottom: 1.5rem;
     max-width: 800px;
 }
-/* Applying the gradient to text */
+
 #home h1 span {
     background: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -160,12 +152,11 @@ h2 {
 
 #home .home-buttons {
     display: flex;
-    justify-content: center; /* This should already be happening */
-    gap: 1.5rem; /* <-- ADD THIS LINE */
-    margin-top: 2.5rem; /* This was already in #home .subtitle, moving it here is cleaner */
+    justify-content: center; 
+    gap: 1.5rem; 
+    margin-top: 2.5rem; 
 }
 
-/* --- 4. MODERN BUTTONS --- */
 .btn {
     display: inline-block;
     padding: 14px 32px;
@@ -193,7 +184,7 @@ h2 {
     background: var(--border-color);
 }
 #header .btn-outline {
-    display: none; /* Let's hide the header CV button for a cleaner look */
+    display: none; 
 }
 
 .btn-outline {
@@ -207,7 +198,6 @@ h2 {
 }
 
 
-/* --- 5. MODERN CARDS --- */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -226,30 +216,28 @@ h2 {
 }
 .card img {
     width: 100%;
-    aspect-ratio: 16 / 9; /* Ensure all images have same proportions */
-    object-fit: cover; /* Prevents image stretching */
+    aspect-ratio: 16 / 9; 
+    object-fit: cover; 
 }
 .card-content { padding: 25px; }
 .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
 .card p { color: var(--text-secondary); }
 
 
-/* --- 6. OTHER COMPONENTS --- */
-/* Skills */
 #skills .section-title {
-    text-align: left; /* Align title to the left */
+    text-align: left; 
     margin-bottom: 30px;
 }
 
 #skills h2 {
-    text-align: left; /* Override the global centered style */
+    text-align: left; 
     margin-bottom: 0;
 }
 
 .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* Align pills to the left */
+    justify-content: flex-start; 
     gap: 12px;
 }
 
@@ -257,10 +245,10 @@ h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(30, 41, 59, 0.5); /* Semi-transparent surface color */
+    background: rgba(30, 41, 59, 0.5); 
     border: 1px solid var(--border-color);
     padding: 10px 20px;
-    border-radius: 50px; /* This creates the "pill" shape */
+    border-radius: 50px; 
     font-weight: 600;
     color: var(--text-secondary);
     transition: all 0.3s ease;
@@ -283,7 +271,6 @@ h2 {
     &.devicon-tailwindcss-plain { color: #06B6D4; }
 }
 
-/* Contact Form */
 #contact-form {
     max-width: 700px;
     margin: 40px auto 0;
@@ -306,23 +293,21 @@ h2 {
 }
 #contact-form button { align-self: center; }
 
-/* Footer */
 #footer {
     background: transparent;
     border-top: 1px solid var(--border-color);
     padding: 40px 0;
-    text-align: center; /* Fallback for alignment */
+    text-align: center; 
 
-    /* --- NEW FLEXBOX STYLES --- */
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;    /* Center them horizontally */
-    gap: 20px;              /* Add 20px of space between each item */
+    flex-direction: column; 
+    align-items: center;    
+    gap: 20px;              
 }
 
 .social-links {
-    display: flex; /* Make the icons themselves a horizontal flex row */
-    gap: 25px;     /* Space out the social media icons */
+    display: flex; 
+    gap: 25px;     
 }
 
 .social-links a {
@@ -333,12 +318,12 @@ h2 {
 
 .social-links a:hover {
     color: var(--text-primary);
-    transform: translateY(-3px); /* Add a little hover effect to icons */
+    transform: translateY(-3px); 
 }
 
-/* Target the outline button specifically in the footer */
+
 #footer .btn-outline {
-    display: inline-block; /* Make sure it's visible */
+    display: inline-block;
     border-color: var(--accent-color-1);
     color: var(--accent-color-1);
 }
@@ -354,17 +339,17 @@ h2 {
 }
 
 .mobile-nav-toggle {
-    display: none; /* Hidden by default */
+    display: none; 
     font-size: 1.8rem;
     cursor: pointer;
-    z-index: 1001; /* Ensure it's above the mobile nav */
+    z-index: 1001; 
     color: var(--text-primary);
 }
 
 .mobile-nav {
     position: fixed;
     top: 0;
-    right: -100%; /* Start off-screen */
+    right: -100%; 
     width: 60%;
     max-width: 300px;
     height: 100vh;
@@ -375,7 +360,7 @@ h2 {
 }
 
 .mobile-nav.active {
-    right: 0; /* Slide in */
+    right: 0; 
 }
 
 .mobile-nav ul {
@@ -393,17 +378,15 @@ h2 {
     font-weight: 600;
 }
 
-/* Media Query for mobile devices */
 @media (max-width: 768px) {
     #header nav .desktop-nav {
-        display: none; /* Hide desktop nav on small screens */
+        display: none; 
     }
 
     .mobile-nav-toggle {
-        display: block; /* Show hamburger icon */
+        display: block;
     }
 
-    /* Blur the main content when the menu is open */
     .mobile-nav.active + main,
     .mobile-nav.active + footer {
         filter: blur(5px);
@@ -466,7 +449,7 @@ h2 {
 #contact-form {
     margin: 0;
 }
-/* Responsive adjustment for contact section */
+
 @media (max-width: 900px) {
     .contact-wrapper {
         grid-template-columns: 1fr;

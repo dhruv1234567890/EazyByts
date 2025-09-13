@@ -1,17 +1,13 @@
-// frontend/src/components/Skills.jsx
-
 import React from 'react';
 
 const Skills = () => {
   return (
     <section id="skills">
       <div className="container">
-        {/* Title is now in its own div for alignment */}
         <div className="section-title" data-aos="fade-up">
             <h2>My Skills</h2>
         </div>
         
-        {/* Updated skills list with modern technologies */}
         <div className="skills-grid" data-aos="fade-up" data-aos-delay="200">
             <div className="skill-item"><i className="devicon-javascript-plain"></i> JavaScript</div>
             <div className="skill-item"><i className="devicon-react-original"></i> React</div>

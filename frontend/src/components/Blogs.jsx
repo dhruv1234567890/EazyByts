@@ -6,7 +6,7 @@ const Blogs = () => {
       <div className="container">
         <h2 data-aos="fade-up">Latest Blog Posts</h2>
         <div id="blog-list" className="grid">
-          {/* DUMMY CONTENT: This will be replaced by data from your CMS later */}
+         
           <div className="card" data-aos="fade-up">
             <h3>How to Build a REST API</h3>
             <p>A step-by-step guide to creating your first REST API with Node.js and Express...</p>

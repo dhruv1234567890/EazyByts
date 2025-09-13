@@ -4,7 +4,7 @@ import AOS from 'aos';
 import Header from './components/Header';
 import Home from './components/Home';
 import Skills from './components/Skills';
-import Projects from './components/Projects'; // The dynamic component
+import Projects from './components/Projects';
 import Blogs from './components/Blogs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -40,13 +40,8 @@ function App() {
 
   return (
     <Routes>
-      {/* Route for the main portfolio page */}
       <Route path="/" element={<MainLayout />} />
-
-      {/* Route for the admin login page */}
       <Route path="/login" element={<LoginPage />} />
-
-      {/* We will add protected admin routes here later */}
       <Route path="/admin/dashboard" element={<DashboardPage />} />
       <Route path="/admin/add-project" element={<AddProjectPage />} />
       <Route path="/admin/edit-project/:id" element={<EditProjectPage />} />

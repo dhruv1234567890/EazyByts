@@ -1,4 +1,3 @@
-/* --- Global Styles & Variables --- */
 :root {
     --primary-color: #5841D9;
     --secondary-color: #34D399;
@@ -43,7 +42,6 @@ h2 {
     font-size: 2.5rem;
 }
 
-/* --- Buttons --- */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -83,8 +81,6 @@ h2 {
     color: #fff;
 }
 
-
-/* --- Header & Navigation --- */
 #header {
     background: #fff;
     padding: 1rem 0;
@@ -125,13 +121,10 @@ h2 {
     color: var(--primary-color);
 }
 
-
-/* --- Main Content --- */
 main {
-    padding-top: 80px; /* Offset for fixed header */
+    padding-top: 80px; 
 }
 
-/* Home Section */
 #home {
     display: flex;
     flex-direction: column;
@@ -162,7 +155,6 @@ main {
     gap: 1rem;
 }
 
-/* Skills Section */
 #skills {
     background: var(--light-color);
 }
@@ -182,7 +174,6 @@ main {
     border: 1px solid #e5e7eb;
 }
 
-/* Projects & Blog Grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -216,7 +207,6 @@ main {
     color: var(--primary-color);
 }
 
-/* --- Contact Section --- */
 #contact {
     background: var(--light-color);
 }
@@ -275,7 +265,6 @@ main {
     align-self: center;
 }
 
-/* --- Footer --- */
 #footer {
     background: var(--dark-color);
     color: #fff;
@@ -304,11 +293,9 @@ main {
     color: var(--dark-color);
 }
 
-
-/* --- Responsive Design --- */
 @media (max-width: 768px) {
     #header nav ul, #header .btn-outline {
-        display: none; /* Simple hiding for demo; can implement a burger menu */
+        display: none; 
     }
     #home h1 { font-size: 2.5rem; }
     .contact-info-strip { flex-direction: column; align-items: flex-start; }

@@ -1,11 +1,8 @@
-// frontend/src/components/Home.jsx
-
 import React from 'react';
 
 const Home = () => {
   return (
     <section id="home">
-      {/* Container for the animated background */}
       <div className="aurora-background">
         <div className="shape1"></div>
         <div className="shape2"></div>
